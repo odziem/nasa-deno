@@ -1,0 +1,20 @@
+{
+  "files": [
+      "src/main.ts"
+  ],
+  "extensions": [
+      ".ts"
+  ],
+  "interval": 500,
+  "watch": [
+      "src/"
+  ],
+  "deno_args":[
+      "--allow-env",
+      "--allow-net",
+      "--allow-read"
+  ],
+  "execute": {
+      ".ts": ["deno", "run"]
+  }
+}

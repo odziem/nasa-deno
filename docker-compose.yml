@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    container_name: nasa-deno-api
+    image: hayd/deno
+    command: run --allow-env --allow-net --allow-read src/main.ts
+    volumes:
+      - .:/home/app
+    working_dir: /home/app
+    ports:
+      - "8000:8000"

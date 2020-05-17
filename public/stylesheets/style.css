@@ -1,0 +1,278 @@
+/* Originally from https://adventofcode.com/ */
+
+body {
+  background: #0f0f23;
+  color: #cccccc;
+  font-family: "Source Code Pro", monospace;
+  font-size: 14pt;
+  min-width: 60em;
+}
+img { border:0; }
+a { outline:0; }
+main, figure, figcaption { display:block; }
+pre, code { font-family: "Source Code Pro", monospace; }
+header, main, footer {
+  -webkit-text-size-adjust: none;
+}
+
+a {
+  text-decoration: none;
+  color: #009900;
+}
+a:hover, a:focus {
+  color: #99ff99;
+}
+h1, h2 {
+  font-size: 1em;
+  font-weight: normal;
+}
+code {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+code:before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  display: block;
+  left: -2px;
+  right: -2px;
+  top: 3px;
+  bottom: 0px;
+  border: 1px solid #333340;
+  background: #10101a;
+}
+pre.wrap {
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+.quiet {
+  opacity: .5;
+}
+p.wrap {
+  width: 45em;
+}
+
+.hidden-layout {
+  padding: 0 .5em;
+  border: 1px solid transparent;
+}
+.hidden {
+  border: 1px dotted gray;
+  overflow: hidden;
+  position: relative;
+  padding: 0 .5em;
+}
+.hidden:before {
+  content: "(hover to view)";
+  position: absolute;
+  opacity: .5;
+  text-align: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.hidden > * {
+  visibility: hidden;
+}
+.hidden:hover {
+  border-color: transparent;
+}
+.hidden:hover:before {
+  display: none;
+}
+.hidden:hover > * {
+  visibility: visible;
+}
+
+.warning:not(.warning-active) {
+  transition: color 1s, opacity 1s;
+}
+.warning-active {
+  color: #ff0000;
+  opacity: 1;
+}
+
+.sponsor-badge {
+  color: #79a2d8;
+}
+a.sponsor-badge:hover, a.sponsor-badge:focus {
+  text-decoration: none;
+  color: #ccdbed;
+  text-shadow: 0 0 5px #79a2d8;
+}
+
+#sidebar {
+  width: 200px;
+  float: right;
+  margin: 0 15px 2em 2em;
+}
+#sponsor {
+  margin-bottom: 2.5em;
+}
+
+header {
+  white-space: nowrap;
+  cursor: default;
+  z-index: 100;
+  margin-bottom: 2em;
+}
+header h1 {
+  display: inline-block;
+  margin: 0;
+  padding-right: 1em;
+}
+header h1 a, header h1 span {
+  display: inline-block;
+  text-decoration: none;
+  color: #00cc00;
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+header h1 a:hover, header h1 a:focus {
+  color: #99ff99;
+  text-shadow: 0 0 2px #99ff99, 0 0 5px #99ff99;
+}
+header h1.title-event .title-event-wrap {
+  opacity: .33;
+  white-space: pre;
+}
+header .user {
+  display: inline-block;
+  padding-left: 1em;
+}
+header .user .star-count {
+  color: #ffff66;
+}
+header nav {
+  display: inline-block;
+}
+header nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+header nav li {
+  display: inline-block;
+  padding: 0 .6em;
+}
+header nav a {
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
+}
+
+input[type="text"], textarea {
+  background: transparent;
+  color: inherit;
+  border: 1px solid #666666;
+  background: #10101a;
+  padding: 0 2px;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+textarea {
+  vertical-align: top;
+}
+
+label img {
+  vertical-align: bottom;
+  position: relative;
+  top: -3px;
+  margin-right: .3em;
+}
+input[type="radio"] { display: none; }
+input[type="radio"] ~ span {
+  cursor: pointer;
+  display: inline-block;
+}
+input[type="radio"] ~ span:before {
+  content: "( ) ";
+}
+input[type="radio"] ~ span:hover, input[type="radio"] ~ span:focus {
+  background-color: #19193b;
+}
+input[type="radio"]:checked ~ span {
+  color: #ffffff;
+}
+input[type="radio"]:checked ~ span:before {
+  content: "(O) ";
+}
+input[type="checkbox"] { display: none; }
+input[type="checkbox"] ~ span {
+  cursor: pointer;
+  display: inline-block;
+}
+input[type="checkbox"] ~ span:before {
+  content: "[ ] ";
+}
+input[type="checkbox"] ~ span:hover, input[type="checkbox"] ~ span:focus {
+  background-color: #19193b;
+}
+input[type="checkbox"]:checked ~ span {
+  color: #ffffff;
+}
+input[type="checkbox"]:checked ~ span:before {
+  content: "[X] ";
+}
+input[type="checkbox"]:disabled ~ span {
+  opacity: .3;
+  cursor: default;
+}
+input[type="checkbox"]:disabled ~ span:before {
+  content: "[-] ";
+}
+input[type="checkbox"]:disabled ~ span:hover {
+  background-color: transparent;
+}
+
+input[type="submit"] {
+  background: transparent;
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+  color: #009900;
+  cursor: pointer;
+}
+input[type="submit"]:hover, input[type="submit"]:focus {
+  color: #99ff99;
+}
+*::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+form#settings input[type="radio"] ~ span {
+  min-width: 30em;
+}
+form#settings input[type="checkbox"] ~ span {
+  min-width: 30em;
+}
+
+.stats > span, .stats > span .stats-firstonly, .stats > span .stats-both {
+  color: #666666;
+}
+.stats > a {
+  color: #cccccc;
+  min-width: 35em;
+  display: inline-block;
+}
+.stats > a:hover, .stats > a:focus {
+  background-color: #1e1e46;
+}
+.stats-firstonly {
+  color: #9999cc;
+}
+.stats-both {
+  color: #ffff66;
+}
+
+.sponsor {
+  margin: 1em 0;
+}
