@@ -12,69 +12,76 @@
 
 <body>
   <script src="javascripts/script.js"></script>
-  <header>
-    <div>
-      <h1 class="title-global"><a href="/index.html">NASA Mission Control</a></h1>
-      <nav>
-        <ul>
-          <li><a href="/index.html">[History]</a></li>
-          <li><a href="/schedule.html">[Schedule]</a></li>
-          <li><a href="/login.html">[Log In]</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div>
-      <h1 class="title-event">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="title-event-wrap">:N:O:</span><a href="/index.html">D:E:N:O</a><span class="title-event-wrap">:</span>
-      </h1>
-      <nav>
-        <ul>
-          <li><a href="/launch.html">[New Launch]</a></li>
-          <li><a href="/abort.html">[Abort Launch]</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div id="top-content">
+    <header>
+      <div>
+        <h1 class="title-global"><a>NASA Mission Control</a></h1>
+        <nav>
+          <ul>
+            <li><a onclick="navigate('launch')">[New Mission]</a></li>
+            <li><a onclick="navigate('upcoming')">[Upcoming]</a></li>
+            <li><a onclick="navigate('history')">[History]</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div>
+        <h1 class="title-event">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="title-event-wrap">:N:O:</span><a>D:E:N:O</a><span class="title-event-wrap">:</span>
+        </h1>
+      </div>
+    </header>
 
-  <div id="sidebar">
-    <div id="sponsor">
-      <div class="quiet">We are going interstellar! </div>
-      <div class="sponsor">In partnership with SpaceX and Zero to Mastery we are advancing technology to explore planets beyond our solar system.</div>
+    <div id="sidebar">
+      <div id="sponsor">
+        <div class="quiet">We are going interstellar! </div>
+        <div class="sponsor">In partnership with SpaceX and Zero to Mastery we are advancing technology to explore planets beyond our solar system.</div>
+      </div>
     </div>
+
+    <main>
+      <article id="launch">
+        <p>Schedule a mission launch for interstellar travel to one of the Kepler Exoplanets.</p>
+        <p>Only confirmed planets orbiting stars matching the following criteria are available for the earliest scheduled missions:
+          <ul>
+            <li>1 M☉ (Solar Mass) ±10%</li>
+            <li>1 R☉ (Solar Radius) ±10%</li>
+          </ul>
+        </p>
+        <form>
+          <div class="form-item">
+            <label>Launch Date          </label>
+            <input type="date" id="launch-day" max="2030-12-31" />
+          </div>
+          <div class="form-item">
+            <label>Mission Name         </label>
+            <input type="text" id="mission-name" />
+          </div>
+          <div class="form-item">
+            <label>Rocket Type          </label>
+            <input type="text" id="rocket-name" value="ZTM Experimental IS1" disabled />
+          </div>
+          <div class="form-item">
+            <label>Destination Exoplanet</label>
+            <select id="planets-selector"></select>
+          </div>
+          <a class="submit" onclick="submitLaunch()">[Save Mission ✔]</a>
+        </form>
+
+        <p id="launch-success" hidden>Congratulations! Interstellar launch is scheduled.</p>
+      </article>
+
+      <article id="history" hidden>
+        <p>History of tracked mission launches. Includes SpaceX launches starting from the year 2006.</p>
+        <div id="history-list"></div>
+      </article>
+
+      <article id="upcoming" hidden>
+        <p>Upcoming missions including both SpaceX and Zero to Mastery rockets.</p>
+        <p>Warning! Clicking on the <span class="delete">✖</span> aborts the mission.</p>
+        <div id="upcoming-list"></div>
+      </article>
+    </main>
   </div>
-
-  <main>
-    <p>Here are the current completion statistics for each day. <span class="stats-both">Gold</span> indicates users
-      that have completed both parts of a puzzle, while <span class="stats-firstonly">silver</span> indicates users that
-      have completed only the first half. Each <span class="stats-both">*</span> or <span
-        class="stats-firstonly">*</span> star represents up to 2603 users.</p>
-    <pre class="stats"><a href="/2019/day/25">25  <span class="stats-both"> 2812</span>  <span class="stats-firstonly"> 1024</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/24">24  <span class="stats-both"> 3972</span>  <span class="stats-firstonly"> 1211</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/23">23  <span class="stats-both"> 4227</span>  <span class="stats-firstonly">  150</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/22">22  <span class="stats-both"> 3469</span>  <span class="stats-firstonly"> 2412</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/21">21  <span class="stats-both"> 4417</span>  <span class="stats-firstonly">  322</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/20">20  <span class="stats-both"> 4260</span>  <span class="stats-firstonly">  706</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/19">19  <span class="stats-both"> 5921</span>  <span class="stats-firstonly">  696</span>  <span class="stats-both">***</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/18">18  <span class="stats-both"> 4011</span>  <span class="stats-firstonly">  609</span>  <span class="stats-both">**</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/17">17  <span class="stats-both"> 6967</span>  <span class="stats-firstonly"> 1767</span>  <span class="stats-both">***</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/16">16  <span class="stats-both"> 7438</span>  <span class="stats-firstonly"> 3413</span>  <span class="stats-both">***</span><span class="stats-firstonly">**</span></a>
-<a href="/2019/day/15">15  <span class="stats-both"> 8791</span>  <span class="stats-firstonly">  355</span>  <span class="stats-both">****</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/14">14  <span class="stats-both">10165</span>  <span class="stats-firstonly">  838</span>  <span class="stats-both">****</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/13">13  <span class="stats-both">12277</span>  <span class="stats-firstonly"> 1660</span>  <span class="stats-both">*****</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/12">12  <span class="stats-both">13171</span>  <span class="stats-firstonly"> 3410</span>  <span class="stats-both">******</span><span class="stats-firstonly">**</span></a>
-<a href="/2019/day/11">11  <span class="stats-both">14878</span>  <span class="stats-firstonly">  194</span>  <span class="stats-both">******</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/10">10  <span class="stats-both">16092</span>  <span class="stats-firstonly"> 2965</span>  <span class="stats-both">*******</span><span class="stats-firstonly">**</span></a>
-<a href="/2019/day/9"> 9  <span class="stats-both">19661</span>  <span class="stats-firstonly">  101</span>  <span class="stats-both">********</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/8"> 8  <span class="stats-both">25843</span>  <span class="stats-firstonly"> 1051</span>  <span class="stats-both">**********</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/7"> 7  <span class="stats-both">21166</span>  <span class="stats-firstonly"> 5317</span>  <span class="stats-both">*********</span><span class="stats-firstonly">***</span></a>
-<a href="/2019/day/6"> 6  <span class="stats-both">30549</span>  <span class="stats-firstonly"> 1736</span>  <span class="stats-both">************</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/5"> 5  <span class="stats-both">33188</span>  <span class="stats-firstonly"> 1575</span>  <span class="stats-both">*************</span><span class="stats-firstonly">*</span></a>
-<a href="/2019/day/4"> 4  <span class="stats-both">47355</span>  <span class="stats-firstonly"> 3839</span>  <span class="stats-both">*******************</span><span class="stats-firstonly">**</span></a>
-<a href="/2019/day/3"> 3  <span class="stats-both">45149</span>  <span class="stats-firstonly"> 6328</span>  <span class="stats-both">******************</span><span class="stats-firstonly">***</span></a>
-<a href="/2019/day/2"> 2  <span class="stats-both">69926</span>  <span class="stats-firstonly"> 7317</span>  <span class="stats-both">***************************</span><span class="stats-firstonly">***</span></a>
-<a href="/2019/day/1"> 1  <span class="stats-both">91760</span>  <span class="stats-firstonly">12346</span>  <span class="stats-both">************************************</span><span class="stats-firstonly">*****</span></a>
-</pre>
-  </main>
 
   <footer>
     <div class="quiet">

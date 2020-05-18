@@ -10,14 +10,16 @@ const loadPlanetData = async () => {
   const file = await Deno.open(path);
   const bufReader = new BufReader(file);
   
-  log.info("Loading launch data...");
+  log.info("Loading planet data...");
   const result = await parse(bufReader, {
     header: ["rowid", "kepid", "kepoi_name", "kepler_name", "koi_disposition", "koi_vet_stat", "koi_vet_date", "koi_pdisposition", "koi_score", "koi_fpflag_nt", "koi_fpflag_ss", "koi_fpflag_co", "koi_fpflag_ec", "koi_disp_prov", "koi_comment", "koi_period", "koi_time0bk", "koi_time0", "koi_eccen", "koi_longp", "koi_impact", "koi_duration", "koi_ingress", "koi_depth", "koi_ror", "koi_srho", "koi_fittype", "koi_prad", "koi_sma", "koi_incl", "koi_teq", "koi_insol", "koi_dor", "koi_limbdark_mod", "koi_ldm_coeff4", "koi_ldm_coeff3", "koi_ldm_coeff2", "koi_ldm_coeff1", "koi_parm_prov", "koi_max_sngle_ev", "koi_max_mult_ev", "koi_model_snr", "koi_count", "koi_num_transits", "koi_tce_plnt_num", "koi_tce_delivname", "koi_quarters", "koi_bin_oedp_sig", "koi_trans_mod", "koi_model_dof", "koi_model_chisq", "koi_datalink_dvr", "koi_datalink_dvs", "koi_steff", "koi_slogg", "koi_smet", "koi_srad", "koi_smass", "koi_sage", "koi_sparprov", "ra", "dec", "koi_kepmag", "koi_gmag", "koi_rmag", "koi_imag", "koi_zmag", "koi_jmag", "koi_hmag", "koi_kmag", "koi_fwm_stat_sig", "koi_fwm_sra", "koi_fwm_sdec", "koi_fwm_srao", "koi_fwm_sdeco", "koi_fwm_prao", "koi_fwm_pdeco", "koi_dicco_mra", "koi_dicco_mdec", "koi_dicco_msky", "koi_dikco_mra", "koi_dikco_mdec", "koi_dikco_msky"],
     comment: "#",
   });
 
   result.filter((item : any) => {
-    return item["koi_disposition"] === "CONFIRMED";
+    return item["koi_disposition"] === "CONFIRMED" 
+      && item["koi_srad"] > 0.9 && item["koi_srad"] < 1.1
+      && item["koi_smass"] > 0.9 && item["koi_smass"] < 1.1;
   }).forEach((item : any) => {
     planets.set(item["rowid"], {
       objectCode: item["kepoi_name"],
@@ -27,8 +29,6 @@ const loadPlanetData = async () => {
       planetCount: item["koi_count"],
       stellarRadius: item["koi_srad"],
       stellarMass: item["koi_smass"],
-      rightAscension: item["ra"],
-      declination: item["dec"],
     });
   });
 }

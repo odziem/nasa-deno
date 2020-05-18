@@ -31,10 +31,13 @@ app.use(api.allowedMethods());
 
 // Serve static files
 app.use(async (ctx) => {
-  await send(ctx, ctx.request.url.pathname, {
-    root: `${Deno.cwd()}/public`,
-    index: "index.html",
-  });
+  const filePath = ctx.request.url.pathname;
+  log.info(`Requesting ${filePath}`);
+  if (["/index.html", "/javascripts/script.js", "/stylesheets/style.css", "/images/favicon.png"].includes(filePath)) {
+    await send(ctx, ctx.request.url.pathname, {
+      root: `${Deno.cwd()}/public`,
+    });
+  }
 });
 
 if (import.meta.main) {

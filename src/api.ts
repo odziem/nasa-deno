@@ -28,9 +28,8 @@ router.get("/launches/:id", (ctx) => {
 });
 
 router.post("/launches", async (ctx) => {
-  // console.log('body', ctx.request.body());
   const body = await ctx.request.body();
-  launches.addOne(body.value);
+  launches.addOne(JSON.parse(body.value));
   ctx.response.body = { success: true };
 });
 

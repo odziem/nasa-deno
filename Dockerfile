@@ -9,7 +9,7 @@ USER deno
 
 # Cache the dependencies as a layer (this is re-run only when deps.ts is modified).
 # Ideally this will download and compile _all_ external files used in main.ts.
-COPY deps.ts /app
+COPY src/deps.ts /app
 RUN deno cache src/deps.ts
 
 # These steps will be re-run upon each file change in your working directory:

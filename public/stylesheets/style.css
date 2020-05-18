@@ -1,4 +1,4 @@
-/* Originally from https://adventofcode.com/ */
+/* Originally from Eric Wastl at https://adventofcode.com/ */
 
 body {
   background: #0f0f23;
@@ -14,6 +14,20 @@ pre, code { font-family: "Source Code Pro", monospace; }
 header, main, footer {
   -webkit-text-size-adjust: none;
 }
+body {
+  min-height: 100vh;
+  position: relative;
+}
+main {
+  padding-bottom: 2.5rem;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  font-size: 12pt;
+}
 
 a {
   text-decoration: none;
@@ -21,6 +35,7 @@ a {
 }
 a:hover, a:focus {
   color: #99ff99;
+  cursor: pointer;
 }
 h1, h2 {
   font-size: 1em;
@@ -54,6 +69,11 @@ pre.wrap {
 }
 p.wrap {
   width: 45em;
+}
+
+.form-item {
+  padding: 2px 0px;
+  max-width: 35em;
 }
 
 .hidden-layout {
@@ -165,7 +185,7 @@ header nav a {
   outline: none;
 }
 
-input[type="text"], textarea {
+input[type="text"], textarea, select, input[type="date"] {
   background: transparent;
   color: inherit;
   border: 1px solid #666666;
@@ -173,12 +193,16 @@ input[type="text"], textarea {
   padding: 0 2px;
   font-family: inherit;
   font-size: inherit;
+  min-width: 15em;
   margin: 0;
 }
 textarea {
   vertical-align: top;
 }
 
+label {
+  white-space: pre;
+}
 label img {
   vertical-align: bottom;
   position: relative;
@@ -230,15 +254,20 @@ input[type="checkbox"]:disabled ~ span:hover {
   background-color: transparent;
 }
 
+.submit {
+  font-weight: bold;
+  padding: 6px 0;
+}
+
 input[type="submit"] {
   background: transparent;
   border: 0;
   font-family: inherit;
   font-size: inherit;
   margin: 0;
-  padding: 0;
   color: #009900;
   cursor: pointer;
+  outline: none;
 }
 input[type="submit"]:hover, input[type="submit"]:focus {
   color: #99ff99;
@@ -253,6 +282,41 @@ form#settings input[type="radio"] ~ span {
 }
 form#settings input[type="checkbox"] ~ span {
   min-width: 30em;
+}
+
+.silver {
+  color: #9999cc;
+}
+.gold {
+  color: #ffff66;
+}
+.failure {
+  color: #ff0000;
+}
+.success {
+  color: greenyellow;
+}
+
+.list-item {
+  min-width: 35em;
+  max-width: 60em;
+  min-height: 1.35em;
+  white-space: pre;
+}
+.list-item:hover, .list-item:active {
+  background-color: #1e1e46;
+}
+.list-heading {
+  font-weight: bold;
+  white-space: pre;
+  padding: 0 0 4px 0;
+}
+.list-item > .delete {
+  cursor: pointer;
+}
+.delete {
+  color: #ff0000;
+  font-weight: bold;
 }
 
 .stats > span, .stats > span .stats-firstonly, .stats > span .stats-both {
