@@ -6,8 +6,4 @@ export { parse } from "https://deno.land/std/encoding/csv.ts";
 export { BufReader } from "https://deno.land/std/io/bufio.ts";
 
 // Third-party dependencies
-export {
-  Application,
-  Router,
-  send,
-} from "https://deno.land/x/oak/mod.ts";
+export { Application, Router, send } from "https://deno.land/x/oak/mod.ts";
