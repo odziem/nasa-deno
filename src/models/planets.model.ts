@@ -1,12 +1,9 @@
-import * as log from "https://deno.land/std/log/mod.ts";
-import { join } from "https://deno.land/std/path/mod.ts";
-import { parse } from "https://deno.land/std/encoding/csv.ts";
-import { BufReader } from "https://deno.land/std/io/bufio.ts";
+import { log, join, parse, BufReader } from "../deps.ts";
 
 const planets = new Map<string, any>();
 
-const loadPlanetData = async () => {
-  const path = join(".", "data", "kepler-exoplanets-nasa.csv");
+async function loadPlanetData() {
+  const path = join(".", "data", "kepler_exoplanets_nasa.csv");
   const file = await Deno.open(path);
   const bufReader = new BufReader(file);
   
@@ -35,11 +32,11 @@ const loadPlanetData = async () => {
 
 await loadPlanetData();
 
-export const getAll = () => {
+export function getAll() {
   return Array.from(planets.values());
 };
 
-export const getOne = (id : string) => {
+export function getOne(id : string) {
   if (planets.has(id)) {
     return planets.get(id);
   }

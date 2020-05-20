@@ -1,4 +1,4 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Router } from "./deps.ts";
 
 import * as launches from "./models/launches.model.ts";
 import * as planets from "./models/planets.model.ts";
@@ -35,7 +35,7 @@ router.post("/launches", async (ctx) => {
 
 router.delete("/launches/:id", (ctx) => {
   if (ctx.params?.id) {
-    const result = !!launches.removeOne(Number(ctx.params.id));
+    const result = launches.removeOne(Number(ctx.params.id));
     ctx.response.body = { success: result };
   }
 });

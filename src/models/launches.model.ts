@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
+import { log } from "../deps.ts";
 
 interface Launch {
   upcoming: boolean;
@@ -13,7 +13,7 @@ interface Launch {
 
 const launches = new Map<number, Launch>();
 
-const downloadLaunchData = async () => {
+async function downloadLaunchData() {
   const response = await fetch("https://api.spacexdata.com/v3/launches");
 
   if (!response.ok) {
@@ -44,11 +44,11 @@ const downloadLaunchData = async () => {
 
 await downloadLaunchData();
 
-export const getAll = () => {
+export function getAll() {
   return Array.from(launches.values());
 };
 
-export const getOne = (id : number) => {
+export function getOne(id : number) {
   if (launches.has(id)) {
     return launches.get(id);
   }
@@ -56,18 +56,19 @@ export const getOne = (id : number) => {
   throw new Error("Launch does not exist");
 };
 
-export const addOne = (data : Launch) => {
+export function addOne (data : Launch) {
   launches.set(data.flightNumber, Object.assign(data, {
     upcoming: true,
     customers: ["Zero to Mastery", "NASA"],
   }));
 };
 
-export const removeOne = async (id : number) => {
+export function removeOne(id : number) {
   const aborted = launches.get(id);
   if (aborted) {
     aborted.upcoming = false;
     aborted.success = false;
   }
+  return aborted;
 }
 
