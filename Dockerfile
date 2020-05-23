@@ -1,17 +1,17 @@
-FROM hayd/deno:alpine-1.0.0
+FROM hayd/deno:alpine-1.0.1
 
-WORKDIR /home/app
+WORKDIR /app
 
 # Prefer not to run as root.
 USER deno
 
 # Cache the dependencies as a layer (this is re-run only when deps.ts is modified).
 # Ideally this will download and compile _all_ external files used in main.ts.
-COPY src/deps.ts /app
+COPY src/deps.ts src/
 RUN deno cache src/deps.ts
 
 # These steps will be re-run upon each file change in your working directory:
-COPY . /home/app/
+COPY . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 RUN deno cache src/main.ts
 
