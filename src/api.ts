@@ -44,10 +44,4 @@ router.get("/planets", (ctx) => {
   ctx.response.body = planets.getAll();
 });
 
-router.get("/planets/:id", (ctx) => {
-  if (ctx.params?.id) {
-    ctx.response.body = planets.getOne(ctx.params.id);
-  }
-});
-
 export default router;
