@@ -31,7 +31,15 @@ app.use(api.allowedMethods());
 app.use(async (ctx) => {
   const filePath = ctx.request.url.pathname;
   log.info(`Requesting ${filePath}`);
-  if (["/index.html", "/javascripts/script.js", "/stylesheets/style.css", "/images/favicon.png"].includes(filePath)) {
+  if (
+    [
+      "/index.html",
+      "/javascripts/script.js",
+      "/stylesheets/style.css",
+      "/images/favicon.png",
+      "/videos/space.mp4",
+    ].includes(filePath)
+  ) {
     await send(ctx, ctx.request.url.pathname, {
       root: `${Deno.cwd()}/public`,
     });
