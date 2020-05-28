@@ -30,7 +30,7 @@ function loadPlanets() {
   .then((planets) => {
     const planetSelector = document.getElementById("planets-selector");
     planets.forEach((planet) => {
-      planetSelector.innerHTML += `<option value="${planet.keplerName}">${planet.keplerName}</option>`;
+      planetSelector.innerHTML += `<option value="${planet.kepler_name}">${planet.kepler_name}</option>`;
     });
   });
 }
