@@ -1,4 +1,4 @@
-FROM hayd/deno:alpine-1.0.1
+FROM hayd/deno:alpine-1.0.2
 
 WORKDIR /app
 
@@ -15,7 +15,9 @@ COPY . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
 RUN deno cache src/main.ts
 
+ENV SHELL /bin/sh
+
 # These are passed as deno arguments when run with docker:
-CMD ["run", "--allow-env", "--allow-net", "--allow-read", "src/main.ts"]
+CMD ["run", "--allow-all", "Drakefile.ts", "start"]
 
 EXPOSE 8000
