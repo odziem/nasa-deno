@@ -8,7 +8,7 @@ task("start", [], async function () {
 });
 
 desc("Run API via denon for development");
-task("dev", [], async function () {
+task("denon", [], async function () {
   await sh(
     "PORT=8000 denon run --allow-env --allow-net --allow-read src/main.ts",
   );

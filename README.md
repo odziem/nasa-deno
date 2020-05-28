@@ -3,12 +3,12 @@
 ## Installation
 
 1. Ensure you have Deno installed: https://deno.land/
-2. In the terminal, run: `./scripts/run.sh`
+2. In the terminal, run: `deno run -A Drakefile.ts start`
 
 ## Development
 
-1. Install denon: `deno install -Af --unstable https://deno.land/x/denon/denon.ts`
-2. In the terminal, run: `denon`
+1. Install denon: `deno run -A Drakefile.ts denon-install`
+2. In the terminal, run: `deno run -A Drakefile.ts denon`
 
 ## Docker Compose
 
@@ -22,3 +22,7 @@ Ensure the backend is running by making a GET request to http://localhost:8000/
 ## Front End
 
 Browse to the Mission Control front end at http://localhost:8000/index.html and schedule an interstellar mission launch!
+
+## Locking Dependencies
+
+After adding a dependency, run `deno run -A Drakefile.ts cache` to update the local module cache and create a corresponding lock file. This lock file can then be added to the repository.
