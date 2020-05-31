@@ -1,44 +1,41 @@
-import { log } from "../deps.ts";
+import { flatMap, log } from "../deps.ts";
 
 interface Launch {
-  upcoming: boolean;
-  success?: boolean;
   flightNumber: number;
-  launchDate: number;
   mission: string;
   rocket: string;
-  target?: string;
-  customers: string[];
+  customers: Array<string>;
 }
 
 const launches = new Map<number, Launch>();
 
 async function downloadLaunchData() {
+  log.info("Downloading launch data...");
   const response = await fetch("https://api.spacexdata.com/v3/launches");
 
   if (!response.ok) {
-    return log.warning("Failed to fetch SpaceX launches");
+    log.warning("Failed to fetch SpaceX launches");
+    throw new Error("Launch data download failed.");
   }
 
   const launchData = await response.json();
 
-  log.info("Downloading launch data...");
-  launches.clear();
 
   for (const launch of launchData) {
-    const customers = launch["rocket"]["second_stage"]["payloads"].reduce((acc : string[], curr : any) => {
-      return acc.concat(curr["customers"]);;
-    }, []);
+    const payloads = launch["rocket"]["second_stage"]["payloads"];
 
-    launches.set(launch["flight_number"], {
-      upcoming: launch["upcoming"],
-      success: launch['launch_success'],
+    const customers = flatMap(payloads, (payload: any) => {
+      return payload["customers"];
+    });
+
+    const flightData = {
       flightNumber: launch["flight_number"],
-      launchDate: launch["launch_date_unix"],
       mission: launch["mission_name"],
       rocket: launch["rocket"]["rocket_name"],
       customers,
-    });
+    };
+
+    launches.set(flightData.flightNumber, flightData);
   }
 }
 
