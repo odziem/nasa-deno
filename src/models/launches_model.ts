@@ -1,10 +1,14 @@
 import { flatMap, log } from "../deps.ts";
 
 interface Launch {
+  upcoming: boolean;
+  success?: boolean;
   flightNumber: number;
+  launchDate: number;
   mission: string;
   rocket: string;
   customers: Array<string>;
+  target?: string;
 }
 
 const launches = new Map<number, Launch>();
@@ -29,7 +33,10 @@ async function downloadLaunchData() {
     });
 
     const flightData = {
+      upcoming: launch["upcoming"],
+      success: launch['launch_success'],
       flightNumber: launch["flight_number"],
+      launchDate: launch["launch_date_unix"],
       mission: launch["mission_name"],
       rocket: launch["rocket"]["rocket_name"],
       customers,
