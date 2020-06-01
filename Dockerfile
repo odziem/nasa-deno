@@ -6,14 +6,14 @@ WORKDIR /app
 USER deno
 
 # Cache the dependencies as a layer (this is re-run only when deps.ts is modified).
-# Ideally this will download and compile _all_ external files used in main.ts.
+# Ideally this will download and compile _all_ external files used in mod.ts.
 COPY src/deps.ts src/
 RUN deno cache src/deps.ts
 
 # These steps will be re-run upon each file change in your working directory:
 COPY . .
 # Compile the main app so that it doesn't need to be compiled each startup/entry.
-RUN deno cache src/main.ts
+RUN deno cache src/mod.ts
 
 ENV SHELL /bin/sh
 
