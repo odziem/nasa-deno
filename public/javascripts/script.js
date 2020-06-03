@@ -1,3 +1,4 @@
+// @ts-nocheck
 let launches;
 
 const numberHeading = "No.".padStart(5);
