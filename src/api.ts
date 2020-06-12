@@ -1,7 +1,7 @@
 import { Router } from "./deps.ts";
 
-import * as launches from "./models/launches_model.ts";
 import * as planets from "./models/planets.ts";
+import * as launches from "./models/launches.ts";
 
 const router = new Router();
 
@@ -17,20 +17,23 @@ router.get("/", (ctx) => {
                     Mission Control API`;
 });
 
+router.get("/planets", (ctx) => {
+  ctx.response.body = planets.getAll();
+});
+
 router.get("/launches", (ctx) => {
   ctx.response.body = launches.getAll();
 });
 
 router.get("/launches/:id", (ctx) => {
   if (ctx.params?.id) {
-    ctx.response.body = launches.getOne(Number(ctx.params.id));
+    const launchData = launches.getOne(Number(ctx.params.id));
+    if (launchData) {
+      ctx.response.body = launchData;
+    } else {
+      ctx.throw(400, "Launch with that ID doesn't exist");
+    }
   }
-});
-
-router.post("/launches", async (ctx) => {
-  const body = await ctx.request.body();
-  launches.addOne(JSON.parse(body.value));
-  ctx.response.body = { success: true };
 });
 
 router.delete("/launches/:id", (ctx) => {
@@ -40,8 +43,13 @@ router.delete("/launches/:id", (ctx) => {
   }
 });
 
-router.get("/planets", (ctx) => {
-  ctx.response.body = planets.getAll();
+router.post("/launches", async (ctx) => {
+  const body = await ctx.request.body();
+
+  launches.addOne(body.value);
+
+  ctx.response.body = { success: true };
+  ctx.response.status = 201;
 });
 
 export default router;
