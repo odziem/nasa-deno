@@ -17,31 +17,31 @@ function initValues() {
 
 function loadLaunches() {
   return fetch("/launches")
-  .then((launchesResponse) => launchesResponse.json())
-  .then((fetchedLaunches) => {
-    launches = fetchedLaunches.sort((a, b) => {
-      return a.flightNumber < b.flightNumber;
+    .then((launchesResponse) => launchesResponse.json())
+    .then((fetchedLaunches) => {
+      launches = fetchedLaunches.sort((a, b) => {
+        return a.flightNumber < b.flightNumber;
+      });
     });
-  });
 }
 
 function loadPlanets() {
   return fetch("/planets")
-  .then((planetsResponse) => planetsResponse.json())
-  .then((planets) => {
-    const planetSelector = document.getElementById("planets-selector");
-    planets.forEach((planet) => {
-      planetSelector.innerHTML += `<option value="${planet.kepler_name}">${planet.kepler_name}</option>`;
+    .then((planetsResponse) => planetsResponse.json())
+    .then((planets) => {
+      const planetSelector = document.getElementById("planets-selector");
+      planets.forEach((planet) => {
+        planetSelector.innerHTML += `<option value="${planet.kepler_name}">${planet.kepler_name}</option>`;
+      });
     });
-  });
 }
 
 function abortLaunch(id) {
-  return fetch("/launches/" + id, {
+  return fetch(`/launches/${id}`, {
     method: "delete",
   })
-  .then(loadLaunches)
-  .then(listUpcoming);
+    .then(loadLaunches)
+    .then(listUpcoming);
 }
 
 function submitLaunch() {
@@ -53,6 +53,9 @@ function submitLaunch() {
 
   return fetch("/launches", {
     method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       launchDate: Math.floor(launchDate / 1000),
       flightNumber,
@@ -61,10 +64,10 @@ function submitLaunch() {
       target,
     })
   })
-  .then(() => {
-    document.getElementById("launch-success").hidden = false;
-  })
-  .then(loadLaunches);
+    .then(() => {
+      document.getElementById("launch-success").hidden = false;
+    })
+    .then(loadLaunches);
 }
 
 function listUpcoming() {
