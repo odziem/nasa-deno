@@ -1,4 +1,4 @@
-import { desc, task, sh, run } from "https://deno.land/x/drake@v1.2.3/mod.ts";
+import { desc, task, sh, run } from "https://deno.land/x/drake@v1.2.5/mod.ts";
 
 desc("Run API");
 task("start", [], async function () {
